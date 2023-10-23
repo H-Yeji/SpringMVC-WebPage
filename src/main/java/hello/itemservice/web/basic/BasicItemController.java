@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.PostConstruct;
@@ -26,14 +27,33 @@ public class BasicItemController {
         return "basic/items"; //뷰 템플릿 호출
     }
 
-    @GetMapping("/{itemId}") //상품 상세 컨트롤러
+    /**
+     *상품 상세 컨트롤러
+     */
+    @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId, Model model) {
 
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
         return "basic/item"; //뷰템플릿 파일 경로
-
     }
+
+    /**
+     * 상품 등록 폼 -> 목록에서 상품 목록 클릭
+     */
+    @GetMapping("/add")
+    public String addForm() {
+        return "basic/addForm";
+    }
+
+    /**
+     * 상품 등록 폼에서 상품 등록 버튼 클릭
+     */
+    @PostMapping("/add") //addForm과 같은 url로 오더라도 get, post의 차이로 구분
+    public String save() {
+        return "xxx";
+    }
+    //같은 url인 /add로 들어오더라도, get으로 들어오면 addForm이, post로 들어오면 save가 호출됨
 
     /**
      * 테스트용 데이터 추가
