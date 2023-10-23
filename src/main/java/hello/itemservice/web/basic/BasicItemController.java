@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.PostConstruct;
@@ -23,6 +24,15 @@ public class BasicItemController {
         List<Item> items = itemRepository.findAll(); //모든 아이템 목록 뿌리기
         model.addAttribute("items", items); //model에 넣기
         return "basic/items"; //뷰 템플릿 호출
+    }
+
+    @GetMapping("/{itemId}") //상품 상세 컨트롤러
+    public String item(@PathVariable long itemId, Model model) {
+
+        Item item = itemRepository.findById(itemId);
+        model.addAttribute("item", item);
+        return "basic/item"; //뷰템플릿 파일 경로
+
     }
 
     /**
