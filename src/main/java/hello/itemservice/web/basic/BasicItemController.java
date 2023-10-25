@@ -138,6 +138,16 @@ public class BasicItemController {
     }
 
     /**
+     * 상품 삭제 컨트롤러
+     */
+    @GetMapping("/delete/{itemId}")
+    public String deleteId(@PathVariable Long itemId) {
+
+        itemRepository.delete(itemId);
+        return "redirect:/basic/items";
+    }
+
+    /**
      * 테스트용 데이터 추가
      */
     @PostConstruct
